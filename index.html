@@ -37,12 +37,8 @@
 
 
     <script>
-        setInterval(function () {
-            const params = new URLSearchParams();
-            const player = params.get('player')
-            const platform = params.get('platform')
-            
-            fetch(`https://api.mozambiquehe.re/bridge?auth=8b83c0fca8e96a1157d79af47efdf133&player=${player}&platform=${platform}`)
+        setInterval(function () {        
+            fetch('https://api.mozambiquehe.re/bridge?auth=8b83c0fca8e96a1157d79af47efdf133&player=CreamCakeCat&platform=PC')
             .then(response => {
                 response.json()
                 .then(json => {
