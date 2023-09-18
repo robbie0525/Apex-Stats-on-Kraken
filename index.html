@@ -41,6 +41,7 @@
             const params = new URLSearchParams();
             const player = params.get('player')
             const platform = params.get('platform')
+            
             fetch(`https://api.mozambiquehe.re/bridge?auth=8b83c0fca8e96a1157d79af47efdf133&player=${player}&platform=${platform}`)
             .then(response => {
                 response.json()
