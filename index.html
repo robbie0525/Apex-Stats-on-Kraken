@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
         }
+
         .container {
             width: inherit;
             height: inherit;
@@ -20,12 +21,14 @@
             align-items: center;
             background-color: black;
         }
+
         .sidebar {
             padding: 10px;
             font-family: 'Inter', sans-serif;
-            border-left: 1px solid lightgreen;
+            border-left: 1px solid;
             color: white;
         }
+
         .sidebar p {
             color: darkgray;
         }
@@ -34,7 +37,7 @@
 
 <body>
     <div class="container">
-        <div class="sidebar" id="sidebar">
+        <div class="sidebar" id="sidebar" style="border-color: lightgreen;">
             <h1 id="legend"></h1>
             <p id="stat1"></p>
             <p id="stat2"></p>
@@ -42,13 +45,21 @@
         </div>
     </div>
 
-
     <script>
         const params = (new URL(window.location.href)).searchParams
+
+        const auth = params.get('auth')
         const player = params.get('player')
         const platform = params.get('platform')
+        const color = params.get('color')
+
+        if (color) {
+        document.getElementById('sidebar')
+            .setAttribute('style', `border-color: ${color};`)
+        }
+
         setInterval(function () {
-            fetch(`https://api.mozambiquehe.re/bridge?auth=8b83c0fca8e96a1157d79af47efdf133&player=${player}&platform=${platform}`)
+            fetch(`https://api.mozambiquehe.re/bridge?auth=${auth}&player=${player}&platform=${platform}`)
                 .then(response => {
                     response.json()
                         .then(json => {
