@@ -22,14 +22,14 @@
             background-color: black;
         }
 
-        .sidebar {
+        .child {
             padding: 10px;
             font-family: 'Inter', sans-serif;
             border-left: 1px solid;
             color: white;
         }
 
-        .sidebar p {
+        .child p {
             color: darkgray;
         }
     </style>
@@ -37,7 +37,7 @@
 
 <body>
     <div class="container">
-        <div class="sidebar" id="sidebar" style="border-color: lightgreen;">
+        <div class="child" id="child" style="border-color: lightgreen;">
             <h1 id="legend"></h1>
             <p id="stat1"></p>
             <p id="stat2"></p>
@@ -54,7 +54,7 @@
         const color = params.get('color')
 
         if (color) {
-        document.getElementById('sidebar')
+        document.getElementById('child')
             .setAttribute('style', `border-color: ${color};`)
         }
 
@@ -65,15 +65,21 @@
                         .then(json => {
                             document.getElementById("legend")
                                 .innerHTML = `${json.legends.selected.LegendName}`
+
+                            if (!json.legends.selected.data[0]) json.legends.selected.data[0] = { name: "", value: "" }
                             document.getElementById("stat1")
-                                .innerHTML = `${json.legends.selected.data[0].name}: ${json.legends.selected.data[0].value}`
+                                .innerHTML = `${json.legends.selected.data[0].name}  ${json.legends.selected.data[0].value}`
+                            
+                            if (!json.legends.selected.data[1]) json.legends.selected.data[1] = { name: "", value: "" }
                             document.getElementById("stat2")
-                                .innerHTML = `${json.legends.selected.data[1].name}: ${json.legends.selected.data[1].value}`
+                                .innerHTML = `${json.legends.selected.data[1].name}  ${json.legends.selected.data[1].value}`
+
+                            if (!json.legends.selected.data[2]) json.legends.selected.data[2] = { name: "", value: "" }
                             document.getElementById("stat3")
-                                .innerHTML = `${json.legends.selected.data[2].name}: ${json.legends.selected.data[2].value}`
+                                .innerHTML = `${json.legends.selected.data[2].name}  ${json.legends.selected.data[2].value}`
                         })
                 })
-        }, 3000)
+        }, 1000)
     </script>
 </body>
 
