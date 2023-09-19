@@ -5,7 +5,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
     <style>
-        html, body {
+        html,
+        body {
             width: 100%;
             height: 100%;
             margin: 0;
@@ -53,30 +54,22 @@
         const platform = params.get('platform')
         const color = params.get('color')
 
-        if (color) {
-        document.getElementById('child')
-            .setAttribute('style', `border-color: ${color};`)
-        }
+        if (color) document.getElementById('child').setAttribute('style', `border-color: ${color};`)
 
         setInterval(function () {
             fetch(`https://api.mozambiquehe.re/bridge?auth=${auth}&player=${player}&platform=${platform}`)
                 .then(response => {
                     response.json()
                         .then(json => {
-                            document.getElementById("legend")
-                                .innerHTML = `${json.legends.selected.LegendName}`
+                            const legend = document.getElementById("legend")
+                            const stat1 = document.getElementById("stat1")
+                            const stat2 = document.getElementById("stat2")
+                            const stat3 = document.getElementById("stat3")
 
-                            if (!json.legends.selected.data[0]) json.legends.selected.data[0] = { name: "", value: "" }
-                            document.getElementById("stat1")
-                                .innerHTML = `${json.legends.selected.data[0].name}  ${json.legends.selected.data[0].value}`
-                            
-                            if (!json.legends.selected.data[1]) json.legends.selected.data[1] = { name: "", value: "" }
-                            document.getElementById("stat2")
-                                .innerHTML = `${json.legends.selected.data[1].name}  ${json.legends.selected.data[1].value}`
-
-                            if (!json.legends.selected.data[2]) json.legends.selected.data[2] = { name: "", value: "" }
-                            document.getElementById("stat3")
-                                .innerHTML = `${json.legends.selected.data[2].name}  ${json.legends.selected.data[2].value}`
+                            json.legends.selected.LegendName ? legend.innerHTML = `${json.legends.selected.LegendName}` : legend.innerHTML = ''
+                            json.legends.selected.data[0] ? stat1.innerHTML = `${json.legends.selected.data[0].name}:  ${json.legends.selected.data[0].value}` : stat1.innerHTML = '' 
+                            json.legends.selected.data[1] ? stat2.innerHTML = `${json.legends.selected.data[1].name}:  ${json.legends.selected.data[1].value}` : stat2.innerHTML = '' 
+                            json.legends.selected.data[2] ? stat3.innerHTML = `${json.legends.selected.data[2].name}:  ${json.legends.selected.data[2].value}` : stat3.innerHTML = '' 
                         })
                 })
         }, 1000)
