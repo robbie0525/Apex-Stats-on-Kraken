@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <!-- google fonts imports -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
@@ -28,18 +29,15 @@
             border-left: 1px solid;
             font-family: 'Inter', sans-serif;
             font-size: 0.75em;
-            color: white;
-        }
-
-        .child p {
             color: darkgray;
         }
+
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="child" id="child" style="border-color: lightgreen;">
+        <div class="child" id="child" style="color: white">
             <h1 id="legend"></h1>
             <p id="stat1"></p>
             <p id="stat2"></p>
@@ -50,30 +48,40 @@
     <script>
         const params = (new URL(window.location.href)).searchParams
 
+        // https://robbie0525.github.io?auth=...&player=...&platform=...&color=...
+
+        // auth: api key from apexlegendsapi.com
+        // player: origin/xbl/psn name
+        // platform: PC (origin/steam), X1 (xbox one/series s/x), PS4 (ps4/5)
+        // color: websafe/hex color for customization
         const auth = params.get('auth')
         const player = params.get('player')
         const platform = params.get('platform')
         const color = params.get('color')
 
-        if (color) document.getElementById('child').setAttribute('style', `border-color: ${color};`)
+        const child = document.getElementById('child')
+        const legend = document.getElementById("legend")
+        const stat1 = document.getElementById("stat1")
+        const stat2 = document.getElementById("stat2")
+        const stat3 = document.getElementById("stat3")
 
-        setInterval(function () {
-            fetch(`https://api.mozambiquehe.re/bridge?auth=${auth}&player=${player}&platform=${platform}`)
-                .then(response => {
-                    response.json()
-                        .then(json => {
-                            const legend = document.getElementById("legend")
-                            const stat1 = document.getElementById("stat1")
-                            const stat2 = document.getElementById("stat2")
-                            const stat3 = document.getElementById("stat3")
+        // if no color is selected, defaults to blueviolet
+        color ? child.setAttribute('style', `border-color: ${color};`) : child.setAttribute('style', 'border-color: blueviolet') 
 
-                            json.legends.selected.LegendName ? legend.innerHTML = `${json.legends.selected.LegendName}` : legend.innerHTML = ''
-                            json.legends.selected.data[0] ? stat1.innerHTML = `${json.legends.selected.data[0].name}:  ${json.legends.selected.data[0].value}` : stat1.innerHTML = '' 
-                            json.legends.selected.data[1] ? stat2.innerHTML = `${json.legends.selected.data[1].name}:  ${json.legends.selected.data[1].value}` : stat2.innerHTML = '' 
-                            json.legends.selected.data[2] ? stat3.innerHTML = `${json.legends.selected.data[2].name}:  ${json.legends.selected.data[2].value}` : stat3.innerHTML = '' 
-                        })
-                })
-        }, 1000)
+        setTimeout(update, 1000);
+
+        async function update() {
+            const response = await fetch(`https://api.mozambiquehe.re/bridge?auth=${auth}&player=${player}&platform=${platform}`)
+            const json = await response.json()
+
+            // slots are left blank if player has not selected all three trackers
+            json.legends.selected.LegendName ? legend.innerHTML = `${json.legends.selected.LegendName}` : legend.innerHTML = ''
+            json.legends.selected.data[0] ? stat1.innerHTML = `${json.legends.selected.data[0].name}:  ${json.legends.selected.data[0].value}` : stat1.innerHTML = ''
+            json.legends.selected.data[1] ? stat2.innerHTML = `${json.legends.selected.data[1].name}:  ${json.legends.selected.data[1].value}` : stat2.innerHTML = ''
+            json.legends.selected.data[2] ? stat3.innerHTML = `${json.legends.selected.data[2].name}:  ${json.legends.selected.data[2].value}` : stat3.innerHTML = ''
+            
+            setTimeout(update, 1000);
+        }
     </script>
 </body>
 
