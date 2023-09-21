@@ -11,7 +11,7 @@ The following params are permitted:
 * platform: PC (origin), X1 (xbox 1/series s/x), PS4 (ps4/5)
 * color: any websafe color for the sidebar
 
-See portal.apexlegendsapi.com for the full documentation
+Try to avoid quickly switching legends to avoid bugs. It's just the nature of APIs. See portal.apexlegendsapi.com for the full documentation
 
 
 
