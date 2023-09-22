@@ -3,11 +3,10 @@
 Displays your current trackers for your selected Legend in Apex Legends. You can even customize the colors!
 
 ## Run locally
-> You can do this if you can't access the GitHub Pages url.
-Just download the file and copy/paste the filepath.
 
-## Run from Github Pages
-> Good alternative for the less tech-savvy. Simply copy/paste [this url](https://robbie0525.github.io?auth=___&player=___&platform=___&color=___) with the following URL params
+> You may need to add `file:///` at the beginning of the path
+
+Just download the file and copy/paste the filepath followed by the URL parameters listed below.
 
 | Params                             | Value                                              |
 | ---------------------------------- | -------------------------------------------------- |
