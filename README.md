@@ -2,6 +2,9 @@
 
 Displays your current trackers for your selected Legend in Apex Legends. You can even customize the colors!
 
+![My cooler](https://github.com/robbie0525/Apex-Stats-on-Kraken/blob/main/IMG_1681.jpg?raw=true)
+![My setup](https://github.com/robbie0525/Apex-Stats-on-Kraken/blob/main/IMG_1682.jpg?raw=true)
+
 ## Run locally
 
 > You may need to add `file:///` at the beginning of the path
